@@ -1,0 +1,32 @@
+server:
+  port: 8080  
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    preferIpAddress: true
+
+spring:
+  application:
+    name: Spring-Cloud-API-Gateway
+  cloud:
+    gateway:
+      routes:
+        - id: ecommerce-service
+          uri: lb://ecommerce-service
+          predicates:
+            - Path=/ecommerce/**
+        - id: E-commerce-Order-Service
+          uri: lb://E-commerce-Order-Service
+          predicates:
+            - Path=/order/**
+        - id: E-commerce-Product-Service
+          uri: lb://E-commerce-Product-Service
+          predicates:
+            - Path=/product/**
+        - id: E-commerce-User-Service
+          uri: lb://E-commerce-User-Service
+          predicates:
+            - Path=/user/**
